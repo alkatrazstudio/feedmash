@@ -1,8 +1,17 @@
 # FeedMash
 
-Monitors multiple RSS/Atom/JSON feeds, 
-combines them into one Atom feed
-and serves the resulting feed via HTTP.
+FeedMash combines multiple input web feeds into one.
+You specify input feeds (RSS/Atom/JSON),
+FeedMash monitors and downloads them periodically.
+Then it combines all of them into one single Atom feed
+and serves this final combined feed via HTTP.
+You can use any feed reader to subscribe to this resulting feed.
+
+FeedMash also can be used to subscribe to YouTube channels (even without a YouTube account).
+YouTube channel feeds are a little different:
+the links to them are hidden and also require some post-processing to be properly displayed in a feed reader.
+FeedMash uses YouTube channel URLs to generate proper web feed URLs,
+and then it does the needed processing automatically.
 
 
 ## Usage
@@ -29,6 +38,7 @@ Flags:
 The rest of the documentation is in the example config file.
 Get it with `feedmash --print-example-config` or see it
 [here](https://github.com/alkatrazstudio/feedmash/blob/master/config.yaml).
+
 
 ## Minimum system requirements
 
