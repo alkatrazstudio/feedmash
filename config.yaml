@@ -1,0 +1,39 @@
+# YAML config file for FeedMash.
+# Use this template to create your own config file.
+# Then use your config like this: feedmash /path/to/your/config.yaml
+# The default values are shown below.
+
+# The list of input feeds. This is the only required field.
+sources:
+  # A feed must be a simple URL pointing to RSS, Atom or JSON feed
+  - https://github.com/alkatrazstudio/feedmash/releases.atom # This is just an example.
+                                                             # There are no default feeds.
+
+  # Special case for YouTube.
+  # To subscribe to YouTube channel use a link that you get when you click on the channel's avatar.
+  - https://www.youtube.com/channel/UCsLiV4WJfkTEHH0b9PmRklw # Webdriver Torso
+
+# IP address and port on which the feed server will be running
+serverAddr: "127.0.0.1:13742"
+
+# Save the current feed to this file
+outFeedFilename: ~/.local/share/feedmash/feedmash.xml # default value depends on OS
+
+# User-Agent for network requests
+userAgent: FeedMash
+
+# Maximum items to save in outFeedFilename and serve on serverAddr
+maxOutItems: 666
+
+# After the launch start downloading the feeds sequentially each initialPauseSecs seconds
+initialPauseSecs: 1
+
+# Update each feed each X minutes where X >= minIntervalMins and X <= maxIntervalMins
+minIntervalMins: 180
+maxIntervalMins: 240
+
+# The link in the <link> tag of the output feed
+outFeedSelfLink: "http://127.0.0.1:13742/feedmash.xml" # default value depends on serverAddr
+
+# The value in the <id> tag of the output feed
+outFeedId: feedmash
