@@ -11,7 +11,7 @@ sources:
 
   # Special case for YouTube.
   # To subscribe to YouTube channel use a link that you get when you click on the channel's avatar.
-  - https://www.youtube.com/channel/UCsLiV4WJfkTEHH0b9PmRklw # Webdriver Torso
+  - https://www.youtube.com/@realwebdrivertorso
 
 # IP address and port on which the feed server will be running
 serverAddr: "127.0.0.1:13742"

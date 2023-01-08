@@ -10,6 +10,8 @@ import (
 	"github.com/gorilla/feeds"
 	"github.com/mmcdole/gofeed"
 	"html/template"
+	"io"
+	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
@@ -24,25 +26,44 @@ func IsYoutube(feedUrl url.URL) bool {
 	return true
 }
 
+func downloadHtml(feedUrl url.URL) (string, error) {
+	urlStr := feedUrl.String()
+	resp, err := http.Get(urlStr)
+	if err != nil {
+		return "", err
+	}
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			util.LogWarn(err)
+		}
+	}(resp.Body)
+	htmlBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	html := string(htmlBytes)
+	return html, nil
+}
+
 func YoutubeRealUrl(feedUrl url.URL) string {
-	rx := regexp.MustCompile(`^/channel/([\w\-_]+)`)
-	matches := rx.FindStringSubmatch(feedUrl.Path)
-	if matches == nil {
+	html, err := downloadHtml(feedUrl)
+	if err != nil {
+		util.LogWarn(err)
 		return ""
 	}
 
-	channelId := matches[1]
+	htmlRx := regexp.MustCompile(`<link rel="alternate" type="application/rss\+xml" title="RSS" href="([^"]+)">`)
+	matches := htmlRx.FindStringSubmatch(html)
 
-	realUrl := url.URL{
-		Scheme: "https",
-		Host:   "www.youtube.com",
-		Path:   "feeds/videos.xml",
+	if matches == nil {
+		util.LogWarn("No RSS <link> found")
+		return ""
 	}
-	query := realUrl.Query()
-	query.Set("channel_id", channelId)
-	realUrl.RawQuery = query.Encode()
 
-	realUrlStr := realUrl.String()
+	realUrlStr := matches[1]
 	return realUrlStr
 }
 
