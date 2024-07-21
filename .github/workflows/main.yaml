@@ -15,18 +15,18 @@ env:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4.1.7
       with:
         persist-credentials: false
 
     - name: Setup
-      uses: actions/setup-go@v4.0.1
+      uses: actions/setup-go@v5.0.2
       with:
-        go-version: "1.20.3"
+        go-version: "1.22.2"
 
     - name: Build
       run: ./build-unix.sh
@@ -35,7 +35,7 @@ jobs:
       run: tar -cf- "$APP_ID" | xz -c9e - > "$APP_ID-linux.tar.xz"
 
     - name: Save
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4.3.4
       with:
         name: release-linux
         path: "*.tar.xz"
@@ -46,14 +46,14 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4.1.7
       with:
         persist-credentials: false
 
     - name: Setup
-      uses: actions/setup-go@v4.0.1
+      uses: actions/setup-go@v5.0.2
       with:
-        go-version: "1.20.3"
+        go-version: "1.22.2"
 
     - name: Build
       run: .\build-windows.ps1
@@ -62,25 +62,25 @@ jobs:
       run: Compress-Archive -Path "$Env:APP_ID.exe" -DestinationPath "$Env:APP_ID-windows.zip"
 
     - name: Save
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4.3.4
       with:
         name: release-windows
         path: "*.zip"
 
 
   build-macos:
-    runs-on: macos-12
+    runs-on: macos-14
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4.1.7
       with:
         persist-credentials: false
 
     - name: Setup
-      uses: actions/setup-go@v4.0.1
+      uses: actions/setup-go@v5.0.2
       with:
-        go-version: "1.20.3"
+        go-version: "1.22.2"
 
     - name: Build
       run: ./build-unix.sh
@@ -89,7 +89,7 @@ jobs:
       run: tar -cf- "$APP_ID" | xz -c9e - > "$APP_ID-macos.tar.xz"
 
     - name: Save
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4.3.4
       with:
         name: release-macos
         path: "*.tar.xz"
@@ -103,14 +103,14 @@ jobs:
     - build-windows
     - build-macos
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Version
       id: version
       run: echo "version=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
 
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4.1.7
       with:
         persist-credentials: false
 
@@ -118,7 +118,7 @@ jobs:
       run: grep -Pzom1 "(?s)\n[##\s]*${{ steps.version.outputs.version }}.*?\n+.*?\K.*?(\n\n|$)" CHANGELOG.md | sed 's/[^[:print:]]//g' > RELEASE.md
 
     - name: Download
-      uses: actions/download-artifact@v3.0.2
+      uses: actions/download-artifact@v4.1.8
       with:
         path: artifacts
 
@@ -128,7 +128,7 @@ jobs:
         mv "artifacts/release-windows/$APP_ID-windows.zip" "artifacts/release-windows/$APP_ID-windows-${{ steps.version.outputs.version }}.zip"
         mv "artifacts/release-macos/$APP_ID-macos.tar.xz" "artifacts/release-macos/$APP_ID-macos-${{ steps.version.outputs.version }}.tar.xz"
     - name: Release
-      uses: softprops/action-gh-release@v0.1.15
+      uses: softprops/action-gh-release@v2.0.8
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:

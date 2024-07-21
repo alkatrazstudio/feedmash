@@ -42,9 +42,9 @@ Get it with `feedmash --print-example-config` or see it
 
 ## Minimum system requirements
 
-- Ubuntu 20.04 (x86_64)
-- Windows 10 version 1909 (x86_64)
-- macOS 10.15 Catalina (x86_64)
+- Ubuntu 24.04 (x86_64)
+- Windows 11 (x86_64)
+- macOS 14 Catalina (x86_64)
 
 
 ## License
