@@ -291,7 +291,7 @@ func startSourceFeedsReceiver(
 			break
 		}
 
-		oldIds := []string{}
+		var oldIds []string
 		for _, item := range outFeed.Items {
 			oldIds = append(oldIds, item.Id)
 		}
