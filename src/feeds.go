@@ -252,7 +252,7 @@ func startSourceFeedsReceiver(
 		Items: []*feeds.Item{},
 	}
 
-	changed := false
+	changed := true
 	if outFeedData != nil {
 		outFeed.Items = mergeOutFeedItems(
 			outFeed.Items,
