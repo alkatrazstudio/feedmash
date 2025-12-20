@@ -5,10 +5,11 @@ package feed_types
 
 import (
 	"fmt"
-	"github.com/gorilla/feeds"
-	"github.com/mmcdole/gofeed"
 	"net/url"
 	"os"
+
+	"github.com/gorilla/feeds"
+	"github.com/mmcdole/gofeed"
 )
 
 const (

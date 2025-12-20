@@ -7,14 +7,15 @@ import (
 	"bytes"
 	"feedmash/util"
 	"fmt"
-	"github.com/gorilla/feeds"
-	"github.com/mmcdole/gofeed"
 	"html/template"
 	"io"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
+
+	"github.com/gorilla/feeds"
+	"github.com/mmcdole/gofeed"
 )
 
 func IsYoutube(feedUrl url.URL) bool {

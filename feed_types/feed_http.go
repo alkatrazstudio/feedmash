@@ -6,11 +6,12 @@ package feed_types
 import (
 	"feedmash/util"
 	"fmt"
-	"github.com/gorilla/feeds"
-	"github.com/mmcdole/gofeed"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/gorilla/feeds"
+	"github.com/mmcdole/gofeed"
 )
 
 func IsHttp(feedUrl url.URL) bool {

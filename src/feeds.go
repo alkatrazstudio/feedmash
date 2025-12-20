@@ -8,8 +8,6 @@ import (
 	"feedmash/feed_types"
 	"feedmash/util"
 	"fmt"
-	"github.com/gorilla/feeds"
-	"github.com/mmcdole/gofeed"
 	"math/rand"
 	"net/url"
 	"os"
@@ -17,6 +15,9 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/gorilla/feeds"
+	"github.com/mmcdole/gofeed"
 )
 
 type FeedSource struct {

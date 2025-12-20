@@ -6,14 +6,15 @@ package src
 import (
 	"feedmash/util"
 	"fmt"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 	"os"
 	"os/user"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"time"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // use var instead of const so these values can be overriden.
@@ -103,6 +104,9 @@ func configFromFile(configFilename string) Config {
 	if err != nil {
 		panic(err)
 	}
+	defer func() {
+		_ = file.Close()
+	}()
 
 	v := viper.New()
 	v.SetConfigType("yaml")
