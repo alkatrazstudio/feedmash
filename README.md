@@ -44,7 +44,7 @@ Get it with `feedmash --print-example-config` or see it
 
 - Ubuntu 24.04 (x86_64)
 - Windows 11 (x86_64)
-- macOS 14 Catalina (x86_64)
+- macOS 26 Tahoe (x86_64)
 
 
 ## License
