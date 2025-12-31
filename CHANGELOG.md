@@ -1,6 +1,11 @@
 # FeedMash - CHANGELOG
 
 
+## v1.0.0 (Jan 1, 2026)
+
+- Only internal changes
+
+
 ## v0.2.1 (July 21, 2024)
 
 - Fixed: re-saving the feed file
